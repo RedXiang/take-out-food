@@ -7,9 +7,9 @@ function bestCharge(selectedItems) {
   var selectedItems_info = [];
   var k = 0;
   var d = "";
-
+console.log(allItems);
   for (var i = 0; i < selectedItems.length; i++) {
-    selectedItems_info.push({ id: selectedItems[i].split("x")[0], amount: selectedItems[i].split("x")[1] });
+    selectedItems_info.push({ id: selectedItems[i].split(" x ")[0], amount: selectedItems[i].split(" x ")[1] });
   }
   for (var j = 0; j < selectedItems_info.length; j++) {
     for (var l = 0; l < allItems.length; l++) {
@@ -19,11 +19,11 @@ function bestCharge(selectedItems) {
       }
     }
   }
-
+console.log(selectedItems_info);
   for (var m = 0; m < selectedItems_info.length; m++) {
     sum += selectedItems_info[m].price * selectedItems_info[m].amount;
-    d += `${selectedItems_info[m].name} x ${selectedItems_info[m].amount} = 
-    ${selectedItems_info[m].price * selectedItems_info[m].amount}`;
+    d += `
+${selectedItems_info[m].name} x ${selectedItems_info[m].amount} = ${selectedItems_info[m].price * selectedItems_info[m].amount}元`;
     if (selectedItems_info[m].id == 'ITEM0001') {
       discount2 += selectedItems_info[m].price / 2;
     }
@@ -38,36 +38,33 @@ function bestCharge(selectedItems) {
 
   if (discount1 > discount2) {
     return `
-     =============订餐明细=============
-      ${d} 
-     ---------------------------------
-     使用优惠：
-     满30减6元，省6元
-     ---------------------------------
-     总计：${sum}元
-     =================================
-     `
+============= 订餐明细 =============${d} 
+-----------------------------------
+使用优惠:
+满30减6元, 省6元
+-----------------------------------
+总计： ${sum-discount1}元
+===================================
+`
   }
   else if (discount1 < discount2) {
     return `
-     =============订餐明细=============
-      ${d}
-     ---------------------------------
-     使用优惠：
-     指定菜品半价（黄焖鸡，凉皮），省${discount2}元
-     ---------------------------------
-     总计：${sum}元
-     =================================
-     `
+============= 订餐明细 =============${d}
+-----------------------------------
+使用优惠:
+指定菜品半价(黄焖鸡，凉皮), 省${discount2}元
+-----------------------------------
+总计： ${sum-discount2}元
+===================================
+`
   }
   else {
     return `
-      =============订餐明细=============
-      ${d} 
-      ---------------------------------
-      总计：${sum}元
-      =================================
-      `
+============= 订餐明细 =============${d} 
+-----------------------------------
+总计： ${sum}元
+===================================
+`
   }
 
 
